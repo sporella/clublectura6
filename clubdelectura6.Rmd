@@ -1,0 +1,265 @@
+---
+title: "Club de Lectura Happy Git with R"
+subtitle: "Sesión 6"
+author: "Stephanie Orellana"
+institute: "RLadies Chile"
+date: "2020/07/29"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: [default, rladies-fonts, "css/rutgers2.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+# ¿Qué aprenderemos hoy?
+
+## Primera parte
+- Cómo colaborar en un proyecto ficticio en GitHub
+  - Hacer un paquete de R sencillo y subirlo a GitHub
+  - Hacer / Recibir un pull request
+  - Hacer / Pedir modificaciones a un pull request
+
+## Segunda parte
+- Cómo colaborar en un proyecto real en GitHub
+  - Experiencias sobre el primer pull-request
+  - Modificar el pull-request de otra persona
+  - Cómo hacer una contribución paso a paso
+
+---
+# Pero antes... ¡GitHub Pages!
+
+Con github pages podemos visualizar archivos html contenidos dentro de nuestros repositorios. Es una forma sencilla de compartir contenido generado por una serie de paquetes de R.
+
+```{r, echo = F, out.width="40%", fig.align="center"}
+knitr::include_graphics("https://blog.hostdime.com.co/wp-content/uploads/github-pages.jpg")
+```
+
+Ejemplos:
+
+- [Una presentación](https://gabysandovalm.github.io/happy-git-r-sesion5/#1)
+
+- [La documentación de un paquete](https://r-spatial.github.io/sf/)
+
+- [Un libro](https://bookdown.org/yihui/bookdown/)
+
+---
+# ¿Cómo funciona?
+
+- Primero debemos activar GitHub pages. Puede hacerse de dos formas:
+
+--
+
+  1.- Creando una rama llamada "gh-pages"
+
+--
+
+  2.- Desde la pestaña "settings" del repositorio.
+    
+    - Desde la rama master
+    - O desde una carpeta "docs"
+    
+--
+
+- Sea cual sea la opción que elijamos, nuestro archivo html que queremos visualizar deberá llamarse **"index.html"** y deberá encontarse dentro de la rama gh-pages, la rama master o la carpeta docs, respectivamente.
+
+---
+# Parte 1
+
+.pull-left[
+¡He tenido una idea super genial! 
+
+Voy a hacer mi primer paquete de R el cual tendrá funciones de gatitos.
+]
+
+```{r, echo= F, out.width="40%", fig.align='right'}
+knitr::include_graphics("https://media1.tenor.com/images/be2166942d5ba6f065bd160668930414/tenor.gif?itemid=12446879")
+```
+
+--
+
+Necesitaré::
+
+```{r, eval = FALSE}
+install.packages("usethis")
+install.packages("devtools")
+```
+--
+
+.pull-left[
+¡Y no olvidar git!
+]
+
+```{r, echo = F, out.width="40%"}
+knitr::include_graphics("https://miro.medium.com/max/3840/1*Ei0WN2aoBx9DM79DRHriUA.png")
+```
+
+---
+## Paso a paso
+
+1.- Para crear un paquete
+
+```{r, eval = FALSE}
+usethis::create_package("miau")
+```
+
+--
+2.- Conectar git
+```{r, eval = FALSE}
+usethis::use_git()
+```
+
+--
+3.- Para crear una functión
+
+```{r, eval = FALSE}
+usethis::use_r(name = "gatitos")
+# "gatitos" es el nombre de la función #<<
+```
+
+--
+4.- Escribir la función
+
+```{r,eval=FALSE}
+gatitos <- function (x) {
+  
+}
+```
+---
+## Paso a paso
+
+5.- Cargar esa función simulando que el paquete fue instalado y cargado
+
+```{r,eval=FALSE}
+devtools::load_all()
+# Simula install.packages("miau") y library(miau) #<<
+```
+
+--
+6.- Construir y probar el paquete
+
+```{r, eval = FALSE}
+devtools::check()
+```
+
+--
+7.- Incluir una licencia
+
+```{r, eval = F}
+usethis::use_mit_license(name = "mi nombre")
+```
+---
+## Paso a paso
+
+8.- Insertar la documentación
+
+```{r, eval = F}
+devtools::document()
+# Y escribir documentación en el archivo de la función
+# Code < Add Roxygen Skeleton #<<
+```
+
+--
+9.- Chequear nuevamente
+
+```{r, eval = F}
+devtools::check()
+```
+
+--
+10.- Instalar de forma local
+
+```{r, eval = FALSE}
+devtools::install()
+```
+---
+## Paso a paso
+
+11.- Subirlo a GitHub
+
+```{r, eval=FALSE}
+usethis::use_github()
+```
+
+¡Y esperar las colaboraciones!
+
+--
+
+Ahora aprenderemos a:
+
+- Hacer un pull request
+- Hacer comentarios en un pull request
+- Modificar un pull request
+- Hacer merge
+
+---
+# Parte 2
+
+Queremos invitarles a que realicen sus primeras contribuciones en GitHub en un ambiente apto para errores y muchas preguntas.
+
+--
+
+Por eso, tenemos un proyecto para recopilar apuntes en español de este Club de Lectura en un libro digital realizado de forma colaborativa y aplicando lo que hemos aprendido.
+
+--
+
+El libro fue hecho utilizando el paquete `{bookdown}` y se encuentra en este repositorio: [https://github.com/rladieschile/apuntes_git](https://github.com/rladieschile/apuntes_git)
+
+
+```{r, echo=F, out.width="40%", fig.align='left'}
+knitr::include_graphics("https://cdn.dribbble.com/users/364116/screenshots/1899338/yogocat_animation.gif")
+```
+
+---
+## Muy breve introducción a bookdown
+
+```{r, eval = F}
+install.packages("bookdown")
+```
+
+--
+
+Ahora cuando creamos un Nuevo Proyecto > Nuevo Directorio nos aparece la opción **"Book Project using Bookdown"** y de inmediato tendremos un libro de ejemplo.
+
+--
+
+También aparece un nuevo panel, el panel "Build", desde donde podremos compilar el libro.
+
+---
+## Colaborando
+
+- Macarena Valenzuela de RLadies Concepción ya hizo un pull request para completar una de las secciones del libro.
+
+- Le dejaremos la palabra para que nos cuente sobre su experiencia.
+
+```{r, echo = FALSE, out.width="40%", fig.align='center'}
+knitr::include_graphics("https://rapidapi.com/blog/wp-content/uploads/2017/01/octocat.gif")
+```
+
+
+---
+## Colaborando
+
+- También, podemos hacer comentarios y correcciones dentro de un pull request antes de hacer merge, esto es muy últil considerando que debemos revisar posibles errores de escritura en nuestro libro.
+
+- ¡Veamos cómo se hace!
+
+---
+## Colaborando
+
+- ¿No te acuerdas muy bien de cómo era el proceso para hacer una colaboración?
+
+--
+- ¿Aún tienes dudas con **origin** y **upstrem**?
+
+--
+- ¿Se te había olvidado la importancia de hacer una rama?
+
+--
+- Ahora Gaby Saldoval nos mostrará paso a paso cómo poder hacer una colaboración desde cero.
+
+```{r, echo = F, out.width="50%", fig.align='right'}
+knitr::include_graphics("https://fegemo.github.io/cefet-cg/images/pusheen-coding.gif")
+```
+
